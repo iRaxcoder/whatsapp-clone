@@ -9,9 +9,24 @@ import {
   Mic,
 } from "@mui/icons-material";
 
-function Chat() {
+import messageService from "../../service/messages";
+
+function Chat({ messages }) {
   const [messageInput, setMessageInput] = useState("");
-  const sendMessage = () => {};
+  const sendMessage = (e) => {
+    e.preventDefault();
+    messageService
+      .post({
+        message: messageInput,
+        name: "Randall",
+        timeStamp: "ahora mismo",
+        received: "false",
+      })
+      .then((response) => {
+        console.log(response);
+      });
+    setMessageInput("");
+  };
 
   return (
     <div className="chat">
@@ -35,17 +50,14 @@ function Chat() {
       </div>
 
       <div className="chat__body">
-        <p className="chat__message">
-          <span className="chat__name">Randall</span>
-          This is a message
-          <span className="chat__timestamp">{new Date().toUTCString()}</span>
-        </p>
+        {messages.map((message) => (
+          <p className="chat__message">
+            <span className="chat__name">{message.name}</span>
+            {message.message}
+            <span className="chat__timestamp">{message.timeStamp}</span>
+          </p>
+        ))}
         <p className="chat__message chat__receiver">
-          <span className="chat__name">Randall</span>
-          This is a message
-          <span className="chat__timestamp">{new Date().toUTCString()}</span>
-        </p>
-        <p className="chat__message">
           <span className="chat__name">Randall</span>
           This is a message
           <span className="chat__timestamp">{new Date().toUTCString()}</span>
