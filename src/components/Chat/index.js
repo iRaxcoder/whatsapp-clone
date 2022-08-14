@@ -50,7 +50,7 @@ function Chat({ messages }) {
       </div>
 
       <div className="chat__body">
-        {messages.map((message) => (
+        {messages?.map((message) => (
           <p className="chat__message">
             <span className="chat__name">{message.name}</span>
             {message.message}
